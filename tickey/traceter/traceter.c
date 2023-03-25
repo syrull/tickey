@@ -7,7 +7,6 @@
 #include <string.h>
 
 #include <stdio.h>
-#include <bits/signum.h>
 
 #include "p_trace.h"
 #include "utils.h"
@@ -80,7 +79,7 @@ static int _continue(trace_session_t * session){
 
 
 static bool was_stopped_by_sigtrap(int status){
-    return WIFSTOPPED(status) && WSTOPSIG(status) == SIGTRAP;
+    return WIFSTOPPED(status) && WSTOPSIG(status) == 5;
 }
 
 
@@ -479,7 +478,7 @@ trace_session_t * fork_session(trace_session_t * session) {
     return forked_session;
     
 close_error:
-    kill(pid, SIGKILL);
+    kill(pid, 9);
     return NULL;
 }
 
